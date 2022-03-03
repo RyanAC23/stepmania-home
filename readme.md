@@ -17,6 +17,7 @@ To get StepMania 5 working quickly on an Ubuntu machine:
 
 ## Folder Structure
 
+```
 |StepMania-home/ Root Directory
 |
 |---|stepmania/ Current SM build
@@ -37,6 +38,7 @@ To get StepMania 5 working quickly on an Ubuntu machine:
 |---Makefile
 |---readme.md (you are here)
 |---.gitignore
+```
 
 ## Dependencies
 
