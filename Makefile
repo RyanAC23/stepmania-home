@@ -1,36 +1,36 @@
 dependencies="build-essential" \
-			"cmake" \
-			"mesa-common-dev" \
-			"libglu1-mesa-dev" \
-			"libglew1.5-dev" \
-			"libxtst-dev" \
-			"libxrandr-dev" \
-			"libpng-dev" \
-			"libjpeg-dev" \
-			"zlib1g-dev" \
-			"libbz2-dev" \
-			"libogg-dev" \
-			"libvorbis-dev" \
-			"libc6-dev" \
-			"yasm" \
-			"libasound-dev" \
-			"libpulse-dev" \
-			"binutils-dev" \
-			"libgtk-3-dev" \
-			"libmad0-dev" \
-			"libudev-dev" \
-			"libva-dev" \
-			"nasm"
+	"cmake" \
+	"mesa-common-dev" \
+	"libglu1-mesa-dev" \
+	"libglew1.5-dev" \
+	"libxtst-dev" \
+	"libxrandr-dev" \
+	"libpng-dev" \
+	"libjpeg-dev" \
+	"zlib1g-dev" \
+	"libbz2-dev" \
+	"libogg-dev" \
+	"libvorbis-dev" \
+	"libc6-dev" \
+	"yasm" \
+	"libasound-dev" \
+	"libpulse-dev" \
+	"binutils-dev" \
+	"libgtk-3-dev" \
+	"libmad0-dev" \
+	"libudev-dev" \
+	"libva-dev" \
+	"nasm"
 
 SyncFolders = "Announcers" \
-			"BackgroundEffects" \
-			"BackgroundTransitions" \
-			"BGAnimations" \
-			"Characters" \
-			"NoteSkins" \
-			"RandomMovies" \
-			"Songs" \
-			"Themes"
+	"BackgroundEffects" \
+	"BackgroundTransitions" \
+	"BGAnimations" \
+	"Characters" \
+	"NoteSkins" \
+	"RandomMovies" \
+	"Songs" \
+	"Themes"
 
 # Variables
 SMLauncher = ~/bin/stepmania
@@ -56,10 +56,12 @@ StepMania:
 launcher:
 	if [ ! -f $(SMLauncher) ]; then \
 		touch $(SMLauncher); \
-		@echo "#!/bin/bash" >> $(SMLauncher); \
-		@echo "$(PresentDirectory)/stepmania/stepmania" >> $(SMLauncher); \
+		echo "#!/bin/bash" >> $(SMLauncher); \
+		echo "$(PresentDirectory)/stepmania/stepmania" >> $(SMLauncher); \
 		chmod +x $(SMLauncher); \
-		@echo "stepmania command added. You need to reload for this to be active."; \
+		echo "stepmania command added. You need to reload for this to be active."; \
+	else \
+		echo "Exiting: $(SMLauncher) already exists! You can remove it with 'make cleanLauncher'."; \
 	fi
 
 symlinks:
@@ -74,14 +76,20 @@ symlinks:
 		done; \
 	fi
 
-test:
-	@echo $(PresentDirectory)
+update:
+	cd $(SMMain); \
+	git pull origin 5_1-new; \
+	cd Build/; \
+	cmake -G 'Unix Makefiles' -DCMAKE_BUILD_TYPE=Release .. && cmake ..; \
+	make -j8
 
 # Cleanup
 cleanLauncher:
 	if [ -f $(SMLauncher) ]; then \
 		 rm $(SMLauncher); \
-		 @echo "Removing $(SMLauncher)."; \
+		 echo "Removing $(SMLauncher)."; \
+	else \
+		echo "$(SMLauncher) does not exist."; \
 	fi
 
 clean:
