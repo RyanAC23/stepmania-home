@@ -56,10 +56,10 @@ StepMania:
 launcher:
 	if [ ! -f $(SMLauncher) ]; then \
 		touch $(SMLauncher); \
-		echo "#!/bin/bash" >> $(SMLauncher); \
-		echo "$(PresentDirectory)/stepmania/stepmania" >> $(SMLauncher); \
+		@echo "#!/bin/bash" >> $(SMLauncher); \
+		@echo "$(PresentDirectory)/stepmania/stepmania" >> $(SMLauncher); \
 		chmod +x $(SMLauncher); \
-		echo "stepmania command added. You need to reload for this to be active."; \
+		@echo "stepmania command added. You need to reload for this to be active."; \
 	fi
 
 symlinks:
@@ -68,20 +68,20 @@ symlinks:
 			if [ -d $(SMMain)/$$i ]; then \
 				cp -RT $(SMMain)/$$i $(SMResources)/$$i && rm -rf $(SMMain)/$$i; \
 			fi; \
-			if [ ! $(SMMain)/$$i ]; then \
+			if [ ! -d $(SMMain)/$$i ]; then \
 				ln -s $(SMResources)/$$i $(SMMain)/$$i; \
 			fi; \
 		done; \
 	fi
 
 test:
-	echo $(PresentDirectory)
+	@echo $(PresentDirectory)
 
 # Cleanup
 cleanLauncher:
 	if [ -f $(SMLauncher) ]; then \
 		 rm $(SMLauncher); \
-		 echo "Removing $(SMLauncher)."; \
+		 @echo "Removing $(SMLauncher)."; \
 	fi
 
 clean:
